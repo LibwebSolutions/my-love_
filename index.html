@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Memories with My Love</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #fbeff7;
+      color: #333;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+      overflow: hidden;
+      position: relative;
+      height: 100vh;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #c2185b;
+      display: none;
+    }
+    .envelope {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -150%) scale(0.2);
+      opacity: 0;
+      animation: flyIn 3s ease-in-out forwards;
+      width: 150px;
+      height: 150px;
+      cursor: pointer;
+    }
+    @keyframes flyIn {
+      0% {
+        transform: translate(-50%, -150%) scale(0.2);
+        opacity: 0;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+    }
+    .tree {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 20px;
+      position: relative;
+    }
+    .branch {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      position: relative;
+      flex-wrap: wrap;
+    }
+    .photo {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+      position: relative;
+    }
+    .photo:hover {
+      transform: scale(1.05);
+    }
+    img.photo-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .heart {
+      position: absolute;
+      animation: fall linear infinite;
+      font-size: 1.5rem;
+      color: #e91e63;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) scale(0.5);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) scale(1);
+        opacity: 0;
+      }
+    }
+    @media (max-width: 600px) {
+      .photo {
+        width: 120px;
+        height: 120px;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      .envelope {
+        width: 120px;
+        height: 120px;
+      }
+    }
+    @media (max-width: 400px) {
+      .photo {
+        width: 100px;
+        height: 100px;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+      .envelope {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="envelope" id="envelope" title="Open your gift ❤️">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 64 64"
+      fill="none"
+      stroke="#c2185b"
+      stroke-width="2"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+      style="width:100%; height:100%;"
+    >
+      <!-- Envelope outline -->
+      <rect x="2" y="16" width="60" height="32" rx="4" ry="4" fill="#f8bbd0" />
+      <!-- Flap -->
+      <polyline points="2,16 32,38 62,16" fill="#f48fb1" />
+      <!-- Bottom line -->
+      <line x1="2" y1="48" x2="62" y2="48" />
+      <!-- Sides -->
+      <line x1="2" y1="16" x2="2" y2="48" />
+      <line x1="62" y1="16" x2="62" y2="48" />
+    </svg>
+  </div>
+
+  <h1 id="title">Memories with My Love</h1>
+
+  <div class="tree" id="tree">
+    <div class="branch">
+      <div class="photo"><img src="image1.jpg" alt="Our first date" class="photo-img" /></div>
+    </div>
+    <div class="branch">
+      <div class="photo"><img src="image2.jpg" alt="Anniversary celebration" class="photo-img" /></div>
+      <div class="photo"><img src="image3.jpg" alt="Vacation vibes" class="photo-img" /></div>
+    </div>
+    <div class="branch">
+      <div class="photo"><img src="image4.jpg" alt="Beach sunset" class="photo-img" /></div>
+      <div class="photo"><img src="image5.jpg" alt="Birthday surprise" class="photo-img" /></div>
+      <div class="photo"><img src="image6.jpg" alt="Adventure time" class="photo-img" /></div>
+    </div>
+
+  <script>
+    // Hearts falling animation
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.textContent = "❤";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+      heart.style.top = "-50px";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 300);
+
+    // Show tree after envelope flies in and is clicked or after timeout
+    const envelope = document.getElementById("envelope");
+    const tree = document.getElementById("tree");
+    const title = document.getElementById("title");
+
+    function revealTree() {
+      envelope.style.display = "none";
+      title.style.display = "block";
+      tree.style.display = "flex";
+    }
+
+    // Reveal tree after envelope animation
+    setTimeout(() => {
+      // If user didn't click, auto reveal after 5 seconds
+      revealTree();
+    }, 5000);
+
+    // Or reveal when user clicks envelope
+    envelope.addEventListener("click", () => {
+      revealTree();
+    });
+  </script>
+</body>
+</html>
